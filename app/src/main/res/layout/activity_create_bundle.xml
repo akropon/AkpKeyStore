@@ -7,7 +7,7 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:gravity="center"
-        tools:context=".AddBundleActivity">
+        tools:context=".CreateBundleActivity">
 
     <LinearLayout
             android:layout_weight="0.8"

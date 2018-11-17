@@ -6,12 +6,38 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class AddBundleActivity extends AppCompatActivity {
+public class CreateBundleActivity extends AppCompatActivity {
+
+    private Bundle bundleToChange = null; // not null in "change mode", null in "create mode"
+
+    private EditText editTextName;
+    private EditText editTextDescription;
+    private EditText editTextLogin;
+    private EditText editTextPassword;
 
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_bundle);
+        setContentView(R.layout.activity_create_bundle);
+
+        editTextName = findViewById(R.id.textedit_name);
+        editTextDescription = findViewById(R.id.textedit_description);
+        editTextLogin = findViewById(R.id.textedit_login);
+        editTextPassword = findViewById(R.id.textedit_password);
+
+        String mode = getIntent().getStringExtra("mode");
+        if (mode.equalsIgnoreCase("change")) {
+            bundleToChange = (Bundle) getIntent().getSerializableExtra("bundle");
+            editTextName.setText(bundleToChange.getName());
+            editTextDescription.setText(bundleToChange.getDescription());
+            editTextLogin.setText(bundleToChange.getLogin());
+            editTextPassword.setText(bundleToChange.getPassword());
+        } else {
+            editTextName.setText("");
+            editTextDescription.setText("");
+            editTextLogin.setText("");
+            editTextPassword.setText("");
+        }
 
         findViewById(R.id.button_ok).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,10 +59,10 @@ public class AddBundleActivity extends AppCompatActivity {
     }
 
     private void onClickButtonOk() {
-        String name = ((EditText) findViewById(R.id.textedit_name)).getText().toString();
-        String description = ((EditText) findViewById(R.id.textedit_description)).getText().toString();
-        String login = ((EditText) findViewById(R.id.textedit_login)).getText().toString();
-        String password = ((EditText) findViewById(R.id.textedit_password)).getText().toString();
+        String name = editTextName.getText().toString();
+        String description = editTextDescription.getText().toString();
+        String login = editTextLogin.getText().toString();
+        String password = editTextPassword.getText().toString();
 
         boolean nameIsNormal = isNameNormal(name);
         boolean descriptionIsNormal = isDescriptionNormal(description);
@@ -51,7 +77,8 @@ public class AddBundleActivity extends AppCompatActivity {
             return;
         }
 
-        Bundle bundle = new Bundle(name, description, login, password);
+        Bundle bundle = new Bundle(bundleToChange == null ? Bundle.UNKNOWN_ID : bundleToChange.getId(),
+                name, description, login, password);
         Intent intent = new Intent();
         intent.putExtra("bundle", bundle);
         setResult(RESULT_OK, intent);
