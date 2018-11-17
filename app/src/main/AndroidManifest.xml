@@ -9,20 +9,34 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <activity
+                android:name=".MainActivity"
+                android:windowSoftInputMode="adjustResize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
-        <activity android:name=".AddUserActivity">
+
+        <activity
+                android:name=".AddUserActivity"
+                android:windowSoftInputMode="adjustResize">
         </activity>
-        <activity android:name=".ListOfBundlesActivity">
+
+        <activity
+                android:name=".ListOfBundlesActivity">
         </activity>
-        <activity android:name=".AddBundleActivity">
+
+        <activity
+                android:name=".CreateBundleActivity"
+                android:windowSoftInputMode="adjustResize">
         </activity>
-        <activity android:name=".ShowBundleActivity">
+
+        <activity
+                android:name=".ShowBundleActivity">
         </activity>
     </application>
 
