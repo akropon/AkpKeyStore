@@ -26,6 +26,17 @@ public class MainActivity extends AppCompatActivity {
                 onClickBtnAddUser();
             }
         });
+        findViewById(R.id.button_delete_database).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickBtnDeleteDatabase();
+            }
+        });
+    }
+
+    private void onClickBtnDeleteDatabase() {
+        UsersStorageManager.getInstance(this).deleteDatabase(this);
+        Toast.makeText(this, "All data was deleted.", Toast.LENGTH_SHORT).show();
     }
 
     private void onClickBtnAddUser() {

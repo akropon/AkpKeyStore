@@ -24,9 +24,27 @@ public class UsersStorageManager {
         dbHelper = new DBHelper(context);
     }
 
-    Boolean isCorrectLoginPassword(String login, String password) {
-        // TODO: 17.11.18 impl
-        return true;
+    Boolean isCorrectLoginPassword(String login, String password) throws NoSuchAlgorithmException {
+        boolean result = false;
+
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery("select * from users", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String loginInDB = cursor.getString(cursor.getColumnIndex("login"));
+                byte[] userPasswordHash = cursor.getBlob(cursor.getColumnIndex("password"));
+                if (loginInDB.equals(login)) {
+                    result = (Arrays.equals(userPasswordHash, CryptographyUtils.getHash(password)));
+                    break;
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        dbHelper.close();
+
+        return result;
     }
 
     public boolean isPasswordNormal(String password) {
@@ -48,7 +66,7 @@ public class UsersStorageManager {
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("login", CryptographyUtils.getHash(login));
+        contentValues.put("login", login);
         contentValues.put("password", CryptographyUtils.getHash(password));
         long newRowId = database.insert("users", null, contentValues);
 
@@ -70,9 +88,9 @@ public class UsersStorageManager {
 
         if (cursor.moveToFirst()) {
             do {
-                byte[] userLoginHash = cursor.getBlob(cursor.getColumnIndex("login"));
+                String loginInDB = cursor.getString(cursor.getColumnIndex("login"));
                 byte[] userPasswordHash = cursor.getBlob(cursor.getColumnIndex("password"));
-                if (Arrays.equals(userLoginHash, CryptographyUtils.getHash(login))
+                if (loginInDB.equals(login)
                         && Arrays.equals(userPasswordHash, CryptographyUtils.getHash(password))) {
 
                     userId = cursor.getInt(cursor.getColumnIndex("id"));
@@ -91,5 +109,11 @@ public class UsersStorageManager {
         }
 
         return new UserKeyStorage(dbHelper, userId, password);
+    }
+
+    void deleteDatabase(Context context) {
+        dbHelper.close();
+        boolean result = context.deleteDatabase(dbHelper.getDatabaseName());
+        Log.i("akropon", "deleting db. isSuccess = "+result);
     }
 }

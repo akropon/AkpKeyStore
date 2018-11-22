@@ -17,7 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL("create table users ("
                 + "id integer primary key autoincrement,"
-                + "login blob,"
+                + "login text,"
                 + "password blob" + ");");
 
         db.execSQL("create table bundles ("

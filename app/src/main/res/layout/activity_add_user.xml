@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:gravity="center"
         tools:context=".AddUserActivity">
 
-    <LinearLayout
-            android:layout_weight="0.6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create new user"
-                android:layout_gravity="center"
-                style="@style/Base.TextAppearance.AppCompat.Title"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add user"
+            android:padding="5dp"
+            android:gravity="center"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:id="@+id/textview_title_1"/>
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="123dp"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_below="@+id/textview_title_1"
+            android:layout_above="@+id/layout_buttons"
+            android:padding="10dp">
 
         <TextView
                 android:layout_width="wrap_content"
@@ -48,20 +54,34 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textedit_password"/>
 
-        <Button
-                android:text="OK"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_ok"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:id="@+id/layout_buttons">
 
         <Button
                 android:text="Cancel"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/button_cancel"/>
 
+        <Button
+                android:text="OK"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_ok"/>
 
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
