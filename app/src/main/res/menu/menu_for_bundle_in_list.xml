@@ -10,7 +10,15 @@
             android:title="Change"/>
 
     <item
+            android:id="@+id/clone"
+            android:title="Clone"/>
+
+    <item
             android:id="@+id/delete"
-            android:title="Delete"/>
+            android:title="Delete This"/>
+
+    <item
+            android:id="@+id/deleteAll"
+            android:title="Delete All"/>
 
 </menu>

@@ -1,85 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:gravity="center"
         tools:context=".MainActivity">
 
-    <LinearLayout
-            android:layout_weight="0.6"
-            android:layout_width="0dp"
+    <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="Sign in"
+            android:id="@+id/textview_title"
+            style="@style/Title"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Sign in"
-                style="@style/Base.TextAppearance.AppCompat.Title"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="user:"/>
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textedit_login"
-                android:text="123"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="password:"/>
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textedit_password"
-                android:text="456"/>
-
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="123dp"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_below="@+id/textview_title"
+            android:layout_above="@+id/layout_buttons"
+            android:padding="10dp"
+            style="@style/Panel">
 
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:orientation="vertical">
 
-            <Button
-                    android:text="Add user"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
+            <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button_add_user"/>
+                    android:text="user:"/>
 
-            <Button
-                    android:text="OK"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
+            <EditText
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button_ok"/>
+                    android:id="@+id/textedit_login"
+                    android:text="123"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="password:"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textedit_password"
+                    android:text="456"/>
 
         </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:weightSum="0.9"
+            android:id="@+id/layout_buttons">
 
         <Button
                 android:text="Delete database"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="match_parent"
                 android:id="@+id/button_delete_database"/>
+
+        <Button
+                android:text="Add user"
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="match_parent"
+                android:id="@+id/button_add_user"/>
+
+        <Button
+                android:text="OK"
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="match_parent"
+                android:id="@+id/button_ok"/>
 
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,6 +1,9 @@
 package com.akropon.akpkeystore;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -97,8 +101,14 @@ public class ListOfBundlesActivity extends AppCompatActivity {
                     case R.id.change:
                         launchChangeBundleActivity(bundlePositionInList);
                         return true;
+                    case R.id.clone:
+                        createCloneForBundle(bundlePositionInList);
+                        return true;
                     case R.id.delete:
                         deleteBundle(bundlePositionInList);
+                        return true;
+                    case R.id.deleteAll:
+                        deleteAllBundlesWithAlert();
                         return true;
                     default:
                         return false;
@@ -106,6 +116,62 @@ public class ListOfBundlesActivity extends AppCompatActivity {
             }
         });
         popupMenu.show();
+    }
+
+    private void deleteAllBundlesWithAlert() {
+        final Context context = this;
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                forceDeleteAllBundles();
+                Toast.makeText(context, "All bundles were deleted.", Toast.LENGTH_SHORT).show();
+
+                try {
+                    ListView listView = findViewById(R.id.listview_bundles);
+                    updateListView(listView, userKeyStorage);
+                } catch (GeneralSecurityException e) {
+                    Log.e("akropon", "error", e);
+                    Toast.makeText(context, "Error updating the list of bundles", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you really want to delete all bundles?").setPositiveButton("Yes", dialogClickListener).
+                setNegativeButton("No", null).show();
+    }
+
+    private void forceDeleteAllBundles() {
+        ListView listView = findViewById(R.id.listview_bundles);
+        ListAdapter adapter = listView.getAdapter();
+        int size = adapter.getCount();
+        for (int i = 0; i < size; i++) {
+            Bundle bundle = (Bundle) adapter.getItem(i);
+            userKeyStorage.deleteBundle(bundle);
+        }
+    }
+
+    private void createCloneForBundle(int bundlePositionInList) {
+        ListView listView = findViewById(R.id.listview_bundles);
+        Bundle bundle = (Bundle) listView.getItemAtPosition(bundlePositionInList);
+        Bundle clone = bundle.clone();
+        clone.setName(bundle.getName()+"_copy");
+
+        try {
+            userKeyStorage.addNewBundle(clone);
+        } catch (GeneralSecurityException e) {
+            Log.e("akropon", "error adding new bundle", e);
+            Toast.makeText(this, "Error adding new bundle", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            updateListView(listView, userKeyStorage);
+        } catch (GeneralSecurityException e) {
+            Log.e("akropon", "error", e);
+            Toast.makeText(this, "Error updating the list of bundles", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void deleteBundle(int bundlePositionInList) {
@@ -150,7 +216,6 @@ public class ListOfBundlesActivity extends AppCompatActivity {
             return;
 
         Bundle newBundle = ((Bundle) data.getSerializableExtra("bundle"));
-
 
         try {
             userKeyStorage.addNewBundle(newBundle);

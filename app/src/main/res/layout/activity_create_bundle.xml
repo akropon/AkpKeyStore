@@ -1,97 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:gravity="center"
         tools:context=".CreateBundleActivity">
 
-    <LinearLayout
-            android:layout_weight="0.8"
-            android:layout_width="0dp"
+
+    <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="Create new bundle"
+            android:id="@+id/textview_title"
+            style="@style/Title"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create new bundle"
-                android:layout_gravity="center"
-                style="@style/Base.TextAppearance.AppCompat.Title"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="name:"/>
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textedit_name"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="description:"/>
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textedit_description"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="login:"/>
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textedit_login"/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="password:"/>
-
-        <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textedit_password"/>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="123dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textview_title"
+            android:layout_above="@+id/layout_buttons"
+            android:padding="10dp"
+            style="@style/Panel">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:orientation="vertical">
 
-            <Button
-                    android:text="Cancel"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
+            <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button_cancel"/>
+                    android:text="name:"/>
 
-            <Button
-                    android:text="OK"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
+            <EditText
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button_ok"/>
+                    android:id="@+id/textedit_name"/>
 
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="description:"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textedit_description"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="login:"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textedit_login"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="password:"/>
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textedit_password"/>
         </LinearLayout>
+    </ScrollView>
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:id="@+id/layout_buttons">
 
+        <Button
+                android:text="Cancel"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_cancel"/>
+
+        <Button
+                android:text="OK"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_ok"/>
 
     </LinearLayout>
 
-
-</LinearLayout>
+</RelativeLayout>

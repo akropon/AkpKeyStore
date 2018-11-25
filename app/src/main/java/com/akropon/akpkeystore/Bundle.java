@@ -1,8 +1,10 @@
 package com.akropon.akpkeystore;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
-public class Bundle implements Serializable {
+public class Bundle implements Serializable, Cloneable {
     static final int UNKNOWN_ID = -1;
 
     private int id;
@@ -60,5 +62,17 @@ public class Bundle implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+
+    @Override
+    protected Bundle clone() {
+        try {
+            return (Bundle) super.clone();
+        } catch (CloneNotSupportedException e) {
+            Log.e("akropon", "Bundle::clone error", e);
+            String filler = "<clone error>";
+            return new Bundle(0, filler, filler, filler, filler); // impossible
+        }
     }
 }

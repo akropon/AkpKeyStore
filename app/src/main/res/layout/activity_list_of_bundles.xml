@@ -10,12 +10,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="List of bundles"
-            android:padding="5dp"
-            android:gravity="center"
-            style="@style/Base.TextAppearance.AppCompat.Title"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
-            android:id="@+id/textview_title_1"/>
+            android:id="@+id/textview_title"
+            style="@style/Title"/>
 
 
     <Button
@@ -31,9 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="123dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/textview_title_1"
+            android:layout_below="@+id/textview_title"
             android:layout_above="@+id/button_add_bundle"
-            android:padding="10dp">
+            android:padding="10dp"
+            style="@style/PanelForList">
 
 
         <ListView
