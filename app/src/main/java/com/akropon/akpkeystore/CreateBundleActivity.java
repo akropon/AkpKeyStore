@@ -87,7 +87,7 @@ public class CreateBundleActivity extends AppCompatActivity {
 
     private boolean isNameNormal(String name) {
         // TODO: 16.11.18 impl
-        return true;
+        return name != null && name.length()>=1;
     }
 
     private boolean isDescriptionNormal(String description) {

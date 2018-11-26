@@ -47,19 +47,58 @@ public class UsersStorageManager {
         return result;
     }
 
+    public boolean isLoginNormal(String login) {
+        return login != null && login.length() > 0;
+    }
+
     public boolean isPasswordNormal(String password) {
         // TODO: 16.11.18 impl
-        return password.length() > 0;
+        return password != null && password.length() > 0;
     }
 
     public boolean canLoginBeCreated(String login) {
-        // TODO: 16.11.18 impl
-        return login.length() > 0;
+
+        boolean thisLoginAlreadyExists = false;
+
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery("select * from users", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String loginInDB = cursor.getString(cursor.getColumnIndex("login"));
+                if (loginInDB.equals(login)) {
+                    thisLoginAlreadyExists = true;
+                    break;
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        dbHelper.close();
+
+        return !thisLoginAlreadyExists;
     }
 
-    public boolean canPasswordBeCreated(String password) {
-        // TODO: 16.11.18 impl
-        return true;
+    public boolean canPasswordBeCreated(String password) throws NoSuchAlgorithmException {
+        boolean hashAlreadyExists = false;
+
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery("select * from users", null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                byte[] userPasswordHash = cursor.getBlob(cursor.getColumnIndex("password"));
+                if (Arrays.equals(userPasswordHash, CryptographyUtils.getHash(password))) {
+                    hashAlreadyExists = true;
+                    break;
+                }
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        dbHelper.close();
+
+        return !hashAlreadyExists;
     }
 
     public void addUser(String login, String password) throws NoSuchAlgorithmException {

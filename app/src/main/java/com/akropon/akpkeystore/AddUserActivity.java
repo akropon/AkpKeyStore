@@ -40,9 +40,22 @@ public class AddUserActivity extends AppCompatActivity {
 
         UsersStorageManager usersStorageManager = UsersStorageManager.getInstance(this);
 
+        boolean loginIsNormal = usersStorageManager.isLoginNormal(login);
         boolean passwordIsNormal = usersStorageManager.isPasswordNormal(password);
         boolean loginCanBeCreated = usersStorageManager.canLoginBeCreated(login);
-        boolean passwordCanBeCreated = usersStorageManager.canPasswordBeCreated(password);
+        boolean passwordCanBeCreated = false;
+        try {
+            passwordCanBeCreated = usersStorageManager.canPasswordBeCreated(password);
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("akropon", "error in UsersStorageManager::canPasswordBeCreated", e);
+            Toast.makeText(this, "Strange error occurred. User was not created.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!loginIsNormal) {
+            Toast.makeText(this, "Invalid login", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (!passwordIsNormal) {
             Toast.makeText(this, "Invalid password", Toast.LENGTH_SHORT).show();
